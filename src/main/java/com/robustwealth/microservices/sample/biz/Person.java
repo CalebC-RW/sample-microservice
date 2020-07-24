@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.ToString;
 import lombok.Value;
 
-@Builder(toBuilder = true)
+@Builder
 @Value
 public class Person {
     @NotNull

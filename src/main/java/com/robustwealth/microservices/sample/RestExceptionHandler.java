@@ -12,12 +12,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
-    private static Logger LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
+    private static final Logger SYSTEM_LOGGER = LoggerFactory.getLogger(RestExceptionHandler.class);
 
     @ExceptionHandler(value = { RuntimeException.class })
     protected ResponseEntity<Object> handleAllExceptions(RuntimeException ex, WebRequest req) {
-        LOGGER.error("Unexpected exception thrown: {}", ex.getClass().getName(), ex);
-        
+        SYSTEM_LOGGER.error("Unexpected exception thrown: {}", ex.getClass().getName(), ex);
+
         return handleExceptionInternal(ex, "{\"message\":\"" + ex.getClass().getName() + " thrown\"}",
                 new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR, req);
     }

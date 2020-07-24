@@ -1,0 +1,1 @@
+SELECT person_id, first_name, last_name FROM person
