@@ -20,4 +20,10 @@ public class Person {
 
     @ToString.Exclude
     private final String ssn;
+
+    public static class PersonBuilder {
+        public PersonBuilder personId(String personIdAsString) {
+            return id(UUID.fromString(personIdAsString));
+        }
+    }
 }
