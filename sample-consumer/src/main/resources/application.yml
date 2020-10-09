@@ -1,0 +1,6 @@
+server:
+    port: 8088
+
+sample.controller.SampleControllerRest:
+    ribbon:
+        listOfServers: http://localhost:8080
