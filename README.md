@@ -47,7 +47,7 @@ needed is the location of the service it is consuming (see `/src/main/resources/
 To start the consumer service (port 8088), run:
 
 ```java
-java -jar sample-app/target/sample-app-<version>.jar
+java -jar sample-consumer/target/sample-consumer-<version>.jar
 ```
 
 To demonstrate the OpenFeign operation, run both services and then visit:
