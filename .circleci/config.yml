@@ -51,6 +51,70 @@ jobs:
           root: .
           paths:
             - .
+  release:
+    docker:
+      - image: cimg/openjdk:13.0
+    working_directory: ~/working
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/working
+      - run:
+          name: Generate Cache Checksum
+          command: find . -name 'pom.xml' | sort | xargs cat > /tmp/maven_cache_seed
+      - restore_cache:
+          keys:
+          - maven-{{ checksum "/tmp/maven_cache_seed" }}
+          # fallback to latest cache if no exact match found
+          - maven-
+      - run:
+          name: Cut release
+          command:  |
+            # assemble current and new version numbers
+            OLD_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' \
+              --non-recursive org.codehaus.mojo:exec-maven-plugin:exec \
+              --settings '.circleci/settings.xml')
+            NEW_VERSION="${OLD_VERSION/-SNAPSHOT/}"
+            echo "Releasing $OLD_VERSION as $NEW_VERSION"
+            
+            # ensure dependencies use release versions
+            mvn versions:use-releases --settings .circleci/settings.xml
+            
+            # write release version to POM
+            mvn versions:set -DnewVersion="$NEW_VERSION" --settings '.circleci/settings.xml'
+            
+            # setup git
+            git config user.name "Release Script"
+            git config user.email "builds@robustwealth.com"
+            
+            # commit and tag
+            git add pom.xml */pom.xml
+            git commit -m "release: $NEW_VERSION"
+            git tag "$NEW_VERSION"
+            
+            # merge to master and publish
+            git checkout master
+            git merge --no-edit release
+            git push origin master --tags
+            
+            # prepare next development version
+            # increment minor version number and reset "fix" number
+            MAJ_VERSION=$(echo "$NEW_VERSION" | cut -d '.' -f 1)
+            MIN_VERSION=$(echo "$NEW_VERSION" | cut -d '.' -f 2)
+            NEW_MINOR=$(($MIN_VERSION + 1))
+            DEV_VERSION="$MAJ_VERSION.$NEW_MINOR.0-SNAPSHOT"
+            
+            # update development branch
+            git checkout dev
+            git merge --no-edit release
+            mvn versions:set -DnewVersion="$DEV_VERSION" --settings '.circleci/settings.xml'
+            git add pom.xml */pom.xml
+            git commit -m "ready for development: $DEV_VERSION"
+            git push origin verify
+            
+            # clean up release branch
+            git push origin :release
+            echo "Released $NEW_VERSION and prepared dev with $DEV_VERSION"
 workflows:
   version: 2
   build-and-deploy:
@@ -66,12 +130,12 @@ workflows:
           filters:
             branches:
               only: /^(master|dev)$/
-#      - release:
-#          requires:
-#            - build
-#          context:
-#            - microservicesBuildDev
-#          filters:
-#            branches:
-#              only: /^release$/
+      - release:
+          requires:
+            - build
+          context:
+            - microservicesBuildDev
+          filters:
+            branches:
+              only: /^release$/
 
