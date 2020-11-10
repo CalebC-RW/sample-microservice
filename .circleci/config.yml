@@ -67,6 +67,9 @@ jobs:
           - maven-{{ checksum "/tmp/maven_cache_seed" }}
           # fallback to latest cache if no exact match found
           - maven-
+      - add_ssh_keys:
+          fingerprints:
+            - "97:f7:15:54:32:85:df:a3:67:bb:0d:b6:85:d0:5e:88"
       - run:
           name: Cut release
           command:  |
