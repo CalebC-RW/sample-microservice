@@ -98,6 +98,8 @@ jobs:
             
             # merge to master and publish
             git checkout master
+            git fetch origin
+            git pull
             git merge --no-edit release
             git push origin master --tags
             
