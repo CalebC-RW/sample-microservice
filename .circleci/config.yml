@@ -51,6 +51,7 @@ jobs:
           root: .
           paths:
             - .
+# Most of the release steps were obtained from https://di.nmfay.com/circle-maven-versions
   release:
     docker:
       - image: cimg/openjdk:13.0
