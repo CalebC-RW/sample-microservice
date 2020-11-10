@@ -96,8 +96,10 @@ jobs:
             git commit -m "release: $NEW_VERSION"
             git tag "$NEW_VERSION"
             
-            # merge to master and publish
+            # merge to master, update from origin, and publish
             git checkout master
+            git fetch origin
+            git pull
             git merge --no-edit release
             git push origin master --tags
             
