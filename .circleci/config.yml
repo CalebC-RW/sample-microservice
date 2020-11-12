@@ -92,7 +92,7 @@ jobs:
             git config user.email "builds@robustwealth.com"
             
             # commit and tag
-            git add pom.xml */pom.xml
+            git add ./\*pom.xml
             git commit -m "release: $NEW_VERSION"
             git tag "$NEW_VERSION"
             
