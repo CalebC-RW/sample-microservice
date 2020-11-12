@@ -112,7 +112,7 @@ jobs:
             git checkout dev
             git merge --no-edit release
             mvn versions:set -DnewVersion="$DEV_VERSION" --settings '.circleci/settings.xml'
-            git add pom.xml */pom.xml
+            git add ./\*pom.xml
             git commit -m "ready for development: $DEV_VERSION [skip ci]"
             git push origin dev
             
