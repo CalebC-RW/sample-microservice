@@ -38,7 +38,7 @@ public class SampleControllerImpl implements SampleControllerRest {
         final Person person = this.sampleService.getPerson(personId);
 
         if (person == null) {
-            LOGGER.warn("Requested person not returned: {}", personId);
+            LOGGER.warn("Requested person not returned: {}, what could have went wrong?", personId);
             return ResponseEntity.notFound().build();
         }
 
