@@ -38,6 +38,39 @@
             <url>https://robustwealth.jfrog.io/artifactory/libs-snapshot/</url>
         </snapshotRepository>
     </distributionManagement>
+   
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://robustwealth.jfrog.io/robustwealth/rw_repo</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>https://robustwealth.jfrog.io/robustwealth/rw_repo</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://robustwealth.jfrog.io/robustwealth/rw_repo</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>snapshots</id>
+            <url>https://robustwealth.jfrog.io/robustwealth/rw_repo</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
     <modules>
         <module>sample-app</module>
