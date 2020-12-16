@@ -1,5 +1,8 @@
 package com.robustwealth.microservices.sample.controller;
 
+import com.robustwealth.microservices.sample.biz.Person;
+import com.robustwealth.microservices.sample.service.SampleService;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -8,9 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.robustwealth.microservices.sample.biz.Person;
-import com.robustwealth.microservices.sample.service.SampleService;
 
 @RestController
 public class SampleControllerImpl implements SampleControllerRest {
@@ -28,7 +28,7 @@ public class SampleControllerImpl implements SampleControllerRest {
     public ResponseEntity<List<Person>> getPeople() {
         final List<Person> people = this.sampleService.getAllPeople();
 
-        LOGGER.info("Returning {} people", people.size());
+        LOGGER.info("Returning {} people now", people.size());
 
         return ResponseEntity.ok(people);
     }
@@ -38,7 +38,7 @@ public class SampleControllerImpl implements SampleControllerRest {
         final Person person = this.sampleService.getPerson(personId);
 
         if (person == null) {
-            LOGGER.warn("Requested person not returned: {}, what could have went wrong?", personId);
+            LOGGER.warn("Requested person not returned by service: {}. This may be correct behavior.", personId);
             return ResponseEntity.notFound().build();
         }
 
