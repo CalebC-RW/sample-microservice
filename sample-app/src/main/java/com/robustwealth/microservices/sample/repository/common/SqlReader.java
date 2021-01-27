@@ -37,6 +37,6 @@ public class SqlReader {
 
     @Nonnull
     private String getBaseResourceFromRepositoryClassName() {
-            return repositoryClass.getName().replace(".", File.separator);
+            return repositoryClass.getName().replaceAll("\\.", File.separator + File.separator);
     }
 }
