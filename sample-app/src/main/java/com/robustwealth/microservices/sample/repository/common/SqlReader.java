@@ -19,8 +19,8 @@ public class SqlReader {
 
     @Nonnull
     public String getSql(String queryName) {
-        final InputStream stream = getClass().getResourceAsStream(
-                File.separator + getBaseResourceFromRepositoryClassName() + "_" + queryName + ".sql");
+        final String resourceName = getBaseResourceFromRepositoryClassName() + "_" + queryName + ".sql";
+        final InputStream stream = getClass().getClassLoader().getResourceAsStream(resourceName);
 
         if (stream == null) {
             throw new IllegalStateException(
@@ -37,6 +37,6 @@ public class SqlReader {
 
     @Nonnull
     private String getBaseResourceFromRepositoryClassName() {
-        return repositoryClass.getName().replaceAll("\\.", File.separator);
+            return repositoryClass.getName().replace(".", File.separator);
     }
 }
