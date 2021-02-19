@@ -1,8 +1,11 @@
 server:
     port: 8088
 
+feign:
+  hystrix:
+    enabled: true
 # The location of the sample service is provided only for demo purposes.
 # For real services, the locations should be dynamically determined (e.g. service discovery).
-sample.controller.SampleControllerRest:
+sample.SampleController:
     ribbon:
         listOfServers: http://localhost:8080

@@ -8,7 +8,7 @@
         <artifactId>sample-parent</artifactId>
         <version>1.6.0-SNAPSHOT</version>
     </parent>
-    <artifactId>sample-app</artifactId>
+    <artifactId>sample</artifactId>
     <name>Sample Service</name>
     <description>Demo service for Microservices</description>
 

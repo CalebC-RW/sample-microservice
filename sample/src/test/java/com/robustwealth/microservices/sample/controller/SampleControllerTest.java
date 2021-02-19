@@ -34,8 +34,8 @@ import com.robustwealth.microservices.sample.biz.Person;
 import com.robustwealth.microservices.sample.service.SampleService;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(SampleControllerImpl.class)
-public class SampleControllerImplTest {
+@WebMvcTest(SampleController.class)
+public class SampleControllerTest {
     @Autowired
     private MockMvc mvc;
 
