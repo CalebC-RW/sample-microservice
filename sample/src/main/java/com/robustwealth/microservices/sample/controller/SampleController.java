@@ -13,13 +13,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class SampleControllerImpl implements SampleControllerRest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleControllerImpl.class);
+public class SampleController implements SampleControllerRest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
 
     private final SampleService sampleService;
 
     @Autowired
-    public SampleControllerImpl(SampleService sampleService) {
+    public SampleController(SampleService sampleService) {
         super();
         this.sampleService = sampleService;
     }

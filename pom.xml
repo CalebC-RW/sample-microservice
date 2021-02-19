@@ -73,7 +73,7 @@
     </pluginRepositories>
 
     <modules>
-        <module>sample-app</module>
+        <module>sample</module>
         <module>sample-model</module>
         <module>sample-rest</module>
         <module>sample-rest-client</module>
