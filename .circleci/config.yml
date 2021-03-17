@@ -109,15 +109,18 @@ jobs:
             DEV_VERSION="$MAJ_VERSION.$NEW_MINOR.0-SNAPSHOT"
             
             # update development branch
-            git checkout dev
-            git merge --no-edit release
+            git checkout release
             mvn versions:set -DnewVersion="$DEV_VERSION" --settings '.circleci/settings.xml'
             git add ./\*pom.xml
             git commit -m "ready for development: $DEV_VERSION [skip ci]"
+            git checkout dev
+            git merge --no-edit release
             git push origin dev
             
             # clean up release branch
+            git branch -D release
             git push origin :release
+            
             echo "Released $NEW_VERSION and prepared dev with $DEV_VERSION"
 workflows:
   version: 2
