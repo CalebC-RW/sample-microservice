@@ -31,14 +31,14 @@ http://localhost:8080/api/people
 This service contains several modules that allow for OpenFeign to work properly.
 
 ### Modules
-* `service-app`: contains the service implementation and assembly
-    * depends on `service-rest`
-* `service-model`: contains the service's model classes
+* `sample`: contains the service implementation and assembly
+    * depends on `sample-rest`
+* `sample-model`: contains the service's model classes
     * very few dependencies
-* `service-rest`: contains the interfaces to the service's controllers
-    * depends on `service-model`
-* `service-rest-client`: contains the OpenFeign interfaces
-    * depends on `service-rest`
+* `sample-rest`: contains the interfaces to the service's controllers
+    * depends on `sample-model`
+* `sample-rest-client`: contains the OpenFeign interfaces
+    * depends on `sample-rest`
 
 ## Sample Service Consumer
 This service demonstrates how the OpenFeign client is used.  The only configuration
