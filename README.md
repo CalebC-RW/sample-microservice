@@ -41,7 +41,7 @@ This service contains several modules that allow for OpenFeign to work properly.
     * depends on `sample-rest`
 
 ## Sample Service Consumer
-This service demonstrates how the OpenFeign client is used.  The only configuration
+This service demonstrates how the OpenFeign client can be used.  The only configuration
 needed is the location of the service it is consuming (see `/src/main/resources/application.yml`).
 
 To start the consumer service (port 8088), run:
