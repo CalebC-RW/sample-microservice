@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.robustwealth.microservices.sample</groupId>
     <artifactId>sample-parent</artifactId>
-    <version>1.6.1-SNAPSHOT</version>
+    <version>1.6.1</version>
     <name>Sample Service Parent POM</name>
     <description>Parent POM for the demo project for Microservices</description>
     <packaging>pom</packaging>
