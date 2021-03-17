@@ -28,7 +28,7 @@ public class SampleController implements SampleControllerRest {
     public ResponseEntity<List<Person>> getPeople() {
         final List<Person> people = this.sampleService.getAllPeople();
 
-        LOGGER.info("Returning {} people now", people.size());
+        LOGGER.info("Returning {} people", people.size());
 
         return ResponseEntity.ok(people);
     }
