@@ -14,7 +14,7 @@ jobs:
             CURRENT_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' \
               --non-recursive org.codehaus.mojo:exec-maven-plugin:exec \
               --settings '.circleci/settings.xml')
-            if [[ "$CURRENT_VERSION" == *SNAPSHOT ]]
+            if [[ "$CIRCLE_BRANCH" == "master" ]] || [[ "$CIRCLE_BRANCH" == "release" ]] || [[ "$CURRENT_VERSION" == *SNAPSHOT ]]
             then
                 echo Version $CURRENT_VERSION passes SNAPSHOT test
             else
@@ -151,9 +151,6 @@ workflows:
       - snapshot-check:
           context:
             - microservicesBuildDev
-          filters:
-            branches:
-              only: /((feature/|hotfix/)\w+|dev)$/
       - build:
           requires:
             - snapshot-check
