@@ -148,7 +148,7 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - snapshot-check
+      - snapshot-check:
           context:
             - microservicesBuildDev
           filters:
