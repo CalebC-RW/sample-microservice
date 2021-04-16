@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.robustwealth.microservices.sample</groupId>
         <artifactId>sample-parent</artifactId>
-        <version>1.10.0</version>
+        <version>1.11.0-SNAPSHOT</version>
     </parent>
     <artifactId>sample-model</artifactId>
     <name>Sample Service Models</name>
