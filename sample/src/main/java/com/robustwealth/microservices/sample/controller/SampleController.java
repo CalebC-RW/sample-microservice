@@ -12,6 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Sample Controller implementing {@link SampleControllerRest}
+ *
+ */
 @RestController
 public class SampleController implements SampleControllerRest {
     private static final Logger LOGGER = LoggerFactory.getLogger(SampleController.class);
