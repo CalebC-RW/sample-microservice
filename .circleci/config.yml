@@ -122,12 +122,27 @@ jobs:
             git merge --no-edit release
             git push origin master --tags
             
-            # prepare next development version
-            # increment minor version number and reset "fix" number
-            MAJ_VERSION=$(echo "$NEW_VERSION" | cut -d '.' -f 1)
-            MIN_VERSION=$(echo "$NEW_VERSION" | cut -d '.' -f 2)
-            NEW_MINOR=$(($MIN_VERSION + 1))
-            DEV_VERSION="$MAJ_VERSION.$NEW_MINOR.0-SNAPSHOT"
+            # get existing version in dev branch
+            git checkout dev
+            CURRENT_DEV_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' \
+              --non-recursive org.codehaus.mojo:exec-maven-plugin:exec \
+              --settings '.circleci/settings.xml')
+            
+            # determine dev version
+            if [[ "$OLD_VERSION" == "$CURRENT_DEV_VERSION" ]]
+            then
+                # Release came from dev
+                # increment minor version number and reset "fix" number
+                MAJ_VERSION=$(echo "$NEW_VERSION" | cut -d '.' -f 1)
+                MIN_VERSION=$(echo "$NEW_VERSION" | cut -d '.' -f 2)
+                NEW_MINOR=$(($MIN_VERSION + 1))
+                DEV_VERSION="$MAJ_VERSION.$NEW_MINOR.0-SNAPSHOT"
+                echo "Release performed from dev branch, new dev version: ${DEV_VERSION}"
+            else
+                # Release came from hotfix, use existing dev version
+                DEV_VERSION=${CURRENT_DEV_VERSION}
+                echo "Release performed from hotfix branch, new dev version: ${DEV_VERSION}"
+            fi
             
             # update development branch
             git checkout release
